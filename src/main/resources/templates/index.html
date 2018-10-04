@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Preliminary-queue</title>
-    <!--
-			CSS
-			============================================= -->
+    <!-- CSS ============================================= -->
     <link rel="stylesheet" th:href="@{css/linearicons.css}">
     <link rel="stylesheet" th:href="@{css/font-awesome.min.css}">
     <link rel="stylesheet" th:href="@{css/jquery.DonutWidget.min.css}">
@@ -15,38 +13,13 @@
 </head>
 <body>
 <!-- Start Header Area -->
-<header class="default-header">
-    <nav class="navbar navbar-expand-lg  navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <img src="img/logo.png" alt="">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#service">Service</a></li>
-                    <li><a href="#project">project</a></li>
-                    <li><a href="#blog">blog</a></li>
-                    <li><a href="#team">team</a></li>
-                    <!-- Dropdown -->
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Pages
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="generic.html">Generic</a>
-                            <a class="dropdown-item" href="elements.html">Elements</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-<!-- End Header Area -->
+<div th:replace="fragments/headers :: ${#authorization.expression('isAuthenticated()')} ? 'header_auth' : 'header_no_auth'">
+
+</div>
+<div th:replace="fragments/bodies :: ${#authorization.expression('isAuthenticated()')} ? 'body_auth' : 'body_no_auth'">
+
+
+</div>
 </body>
 </html>

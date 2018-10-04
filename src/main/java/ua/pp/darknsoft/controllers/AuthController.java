@@ -8,9 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ua.pp.darknsoft.models.AppRole;
-import ua.pp.darknsoft.models.AppUser;
-import ua.pp.darknsoft.models.UserRole;
 import ua.pp.darknsoft.services.AppRoleService;
 import ua.pp.darknsoft.services.AppUserService;
 import ua.pp.darknsoft.services.UserRoleService;
@@ -60,24 +57,24 @@ public class AuthController {
     @GetMapping(value = "/infoPage")
     public String createRole(Model model) {
         String message = "DONE";
-        AppRole appRole = new AppRole();
-        //appRole.setRoleId(2L);
-        appRole.setRoleName("ROLE_ADMIN");
-        AppUser appUser = new AppUser();
-        appUser.setUserName("dark");
-        appUser.setEncryptedPassword("$2a$10$xrjVTRL4n0Tq44GGSs0ZU.L/oIIhs9FkYTj.JCJoMb9lLvlCu.ykq");
-        appUser.setEnabled(true);
-        UserRole userRole = new UserRole();
-
-        try {
-            AppRole sRole = appRoleService.save(appRole);
-            AppUser sUser = appUserService.save(appUser);
-            userRole.setAppRole(sRole);
-            userRole.setAppUser(sUser);
-            userRoleService.save(userRole);
-        } catch (Exception ex) {
-            message = "BAD NEWS ;-( <br />" + ex.toString();
-        }
+//        AppRole appRole = new AppRole();
+//        //appRole.setRoleId(2L);
+//        appRole.setRoleName("ROLE_ADMIN");
+//        AppUser appUser = new AppUser();
+//        appUser.setUserName("dark");
+//        appUser.setEncryptedPassword("$2a$10$xrjVTRL4n0Tq44GGSs0ZU.L/oIIhs9FkYTj.JCJoMb9lLvlCu.ykq");
+//        appUser.setEnabled(true);
+//        UserRole userRole = new UserRole();
+//
+//        try {
+//            AppRole sRole = appRoleService.save(appRole);
+//            AppUser sUser = appUserService.save(appUser);
+//            userRole.setAppRole(sRole);
+//            userRole.setAppUser(sUser);
+//            userRoleService.save(userRole);
+//        } catch (Exception ex) {
+//            message = "BAD NEWS ;-( <br />" + ex.toString();
+//        }
         model.addAttribute("message", message);
         return "infoPage";
     }

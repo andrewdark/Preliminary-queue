@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="roles_show">
+    <section class="project-area section-gap" id="project">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <tr th:each="role: ${allRoles}">
+                    <td th:text="${role.roleId}"></td>
+                    <td th:text="${role.roleName}"></td>
+                    <br/>
+                </tr>
+            </div>
+        </div>
+    </section>
+</div>
+<div th:fragment="users_show">
+    <section class="project-area section-gap" id="project2">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <a href="/admin/users/create">Create new user</a><br/>
+                <tr th:each="user: ${allUsers}">
+                    <td th:text="${user.userId}"></td>
+                    <td th:text="${user.userName}"></td>
+                    <td th:text="${user.enabled}"></td>
+                    <br/>
+                </tr>
+            </div>
+        </div>
+    </section>
+</div>
+<div th:fragment="create_new_user">
+        <section class="project-area section-gap" id="project3">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <table>
+                        <tr>
+                            <td>UserName:</td>
+                            <td><input id="user" name="user" type="text"/></td>
+                            <td>*</td>
+                        </tr>
+                        <tr>
+                            <td>Passwd:</td>
+                            <td><input id="pwd" name="pwd" type="password"/></td>
+                            <td>*</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button onclick="submitRegistrationForm()">Create</button>
+                            </td>
+                            <td>*</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

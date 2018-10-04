@@ -1,6 +1,8 @@
 package ua.pp.darknsoft.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +43,13 @@ public class AdminController {
         return "adminPage";
     }
 
-    @RequestMapping(value="/Submit/",method= RequestMethod.POST)
-    public void submitForm(@RequestBody UserCommand wrapper) {
-        System.out.println("USER:" + wrapper.getUserName());//all data available with Wrapper class
+    @PostMapping("/admin/users/create")
+    @ResponseBody
+    public ResponseEntity<UserCommand> addPerson(@RequestBody UserCommand person) {
+//        if (userService.isUserExist(person)) {
+//            return new ResponseEntity<UserCommand>(person, HttpStatus.CONFLICT);
+//        }
+        System.out.println("USER: " + person.getUserName());
+        return new ResponseEntity<UserCommand>(person, HttpStatus.CREATED);
     }
 }

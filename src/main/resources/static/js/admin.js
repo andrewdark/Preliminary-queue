@@ -8,14 +8,14 @@ function submitRegistrationForm(){
 
     $.ajax({
         type: "post",
-        url: "Submit", //your valid url
+        url: "/admin/users/create", //your valid url (/url)
         contentType: "application/json", //this is required for spring 3 - ajax to work (at least for me)
         data: JSON.stringify(UserCommand), //json object or array of json objects
         success: function(result) {
-//do nothing
+        //do nothing
         },
         error: function(){
-            alert(userName + 'failure');
+            alert(userName + ' failure ');
         }
     });
 }

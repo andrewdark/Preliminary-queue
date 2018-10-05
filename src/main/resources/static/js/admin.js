@@ -12,7 +12,10 @@ function submitRegistrationForm(){
         contentType: "application/json", //this is required for spring 3 - ajax to work (at least for me)
         data: JSON.stringify(UserCommand), //json object or array of json objects
         success: function(result) {
-        //do nothing
+            $(".information").append("<p>" + userName + " has just created</p>");
+            jQuery("#user").val('');
+            jQuery("#pwd").val('');
+            //do nothing
         },
         error: function(){
             alert(userName + ' failure ');

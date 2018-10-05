@@ -12,3 +12,6 @@ CREATE TABLE persistent_logins (
     
 	PRIMARY KEY (series)
 );
+
+############################################
+https://www.thymeleaf.org/doc/articles/springsecurity.html

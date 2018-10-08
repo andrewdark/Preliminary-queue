@@ -1,6 +1,7 @@
 package ua.pp.darknsoft.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "app_user",
@@ -48,5 +49,19 @@ public class AppUser {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AppUser)) return false;
+        AppUser appUser = (AppUser) o;
+        return Objects.equals(userName, appUser.userName);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(userName);
     }
 }

@@ -67,11 +67,11 @@ public class AuthController {
 //        UserRole userRole = new UserRole();
 //
 //        try {
-//            AppRole sRole = appRoleService.save(appRole);
-//            AppUser sUser = appUserService.save(appUser);
+//            AppRole sRole = appRoleService.createAppUser(appRole);
+//            AppUser sUser = appUserService.createAppUser(appUser);
 //            userRole.setAppRole(sRole);
 //            userRole.setAppUser(sUser);
-//            userRoleService.save(userRole);
+//            userRoleService.createAppUser(userRole);
 //        } catch (Exception ex) {
 //            message = "BAD NEWS ;-( <br />" + ex.toString();
 //        }

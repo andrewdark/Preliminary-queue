@@ -32,7 +32,7 @@ public class AdminController {
     @GetMapping(value = "/admin/users")
     public String adminPageShowUsers(Model model) {
         model.addAttribute("usermod", "users_show");
-        Set<AppUser> allUsers = appUserService.findAll();
+        Set<AppUser> allUsers = appUserService.getAllAppUsers();
         model.addAttribute("allUsers", allUsers);
         return "adminPage";
     }
@@ -43,13 +43,4 @@ public class AdminController {
         return "adminPage";
     }
 
-    @PostMapping("/admin/users/create")
-    @ResponseBody
-    public ResponseEntity<UserCommand> addPerson(@RequestBody UserCommand person) {
-//        if (userService.isUserExist(person)) {
-//            return new ResponseEntity<UserCommand>(person, HttpStatus.CONFLICT);
-//        }
-        System.out.println("USER: " + person.getUserName());
-        return new ResponseEntity<UserCommand>(person, HttpStatus.CREATED);
-    }
 }

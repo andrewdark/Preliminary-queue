@@ -1,6 +1,7 @@
 package ua.pp.darknsoft.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "app_role",
@@ -28,5 +29,19 @@ public class AppRole {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AppRole)) return false;
+        AppRole appRole = (AppRole) o;
+        return Objects.equals(roleName, appRole.roleName);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(roleName);
     }
 }

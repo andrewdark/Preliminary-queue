@@ -1,12 +1,12 @@
 package ua.pp.darknsoft.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import ua.pp.darknsoft.commands.UserCommand;
+import org.springframework.web.bind.annotation.GetMapping;
 import ua.pp.darknsoft.models.AppRole;
 import ua.pp.darknsoft.models.AppUser;
 import ua.pp.darknsoft.services.AppRoleService;
@@ -34,12 +34,20 @@ public class AdminController {
         model.addAttribute("usermod", "users_show");
         Set<AppUser> allUsers = appUserService.getAllAppUsers();
         model.addAttribute("allUsers", allUsers);
+        //get current user ID
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = new AppUser();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            appUser = appUserService.getAppUserByUserName(authentication.getName());
+        }
+        model.addAttribute("userId", appUser.getUserId());
         return "adminPage";
     }
 
     @GetMapping(value = "/admin/users/create")
     public String createNewUser(Model model) {
         model.addAttribute("usermod", "create_new_user");
+
         return "adminPage";
     }
 

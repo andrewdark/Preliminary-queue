@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="create_new_client">
+    <section class="project-area section-gap" id="project">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+
+                <table>
+
+                    <tr>
+                        <td>firstName:</td>
+                        <td><input type='text' id='firstName' name='firstName' value=''></td>
+                    </tr>
+                    <tr>
+                        <td>lastName:</td>
+                        <td><input type='text' id='lastName' name='lastName' value=''></td>
+                    </tr>
+                    <tr>
+                        <td>middleName:</td>
+                        <td><input type='text' id='middleName' name='middleName' value=''></td>
+                    </tr>
+                    <tr>
+                        <td>action:</td>
+                        <td><input type='text' id='action' name='action' value=''></td>
+                    </tr>
+                    <tr>
+                        <td>location:</td>
+                        <td><input type='text' id='location' name='location' value=''></td>
+                    </tr>
+                    <tr>
+                        <td>meeting:</td>
+                        <td><input type='text' id='meeting' name='meeting' value=''></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button onclick="submitClientObj()">Create</button>
+                        </td>
+                    </tr>
+                </table>
+                <div class="information" ></div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<div th:fragment="no">
+    <section class="project-area section-gap" id="project2">
+        <div class="container">
+            HELLO
+        </div>
+    </section>
+
+</div>
+</body>
+</html>

@@ -1,5 +1,7 @@
 package ua.pp.darknsoft.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -12,12 +14,22 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable = false)
     private Long userId;
+
     @Column(name = "user_name", length = 36, nullable = false)
     private String userName;
+
     @Column(name = "encrypted_password", length = 128, nullable = false)
     private String encryptedPassword;
+
     @Column(name = "enabled", length = 1, nullable = false)
     private Boolean enabled;
+
+    @ManyToOne
+    @JsonBackReference
+    private Location location;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private UserDetails userDetails;
 
     public Long getUserId() {
         return userId;
@@ -49,6 +61,14 @@ public class AppUser {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     @Override

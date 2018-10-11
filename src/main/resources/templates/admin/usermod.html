@@ -22,6 +22,8 @@
     <section class="project-area section-gap" id="project2">
         <div class="container">
             <div class="row d-flex justify-content-center">
+                Your ID: <p th:text="${userId}"></p>
+                <br>
                 <a href="/admin/users/create">Create new user</a><br/>
                 <tr th:each="user: ${allUsers}">
                     <td th:text="${user.userId}"></td>

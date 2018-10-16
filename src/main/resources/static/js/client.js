@@ -45,21 +45,24 @@ function submitClientObj() {
 
 function calendarClick() {
 
-    var dataStart = "2017-01-01 06:00:00";
-    var dataEnd = "2019-01-01 15:00:00";
+    jQuery("#datepicker").datepicker( "option", "dateFormat", "yy-mm-dd" );
+    //var testdate = jQuery("#datepicker").datepicker( "getDate" );
+    var date = $("#datepicker").datepicker({ dateFormat: "yy-mm-dd" }).val();
+    var dateStart = date + " 06:00:00";
+    var dateEnd = date +" 15:00:00";
     var loc = 1;
 
     $.ajax({
         type: "get",
-        url:"/api/clients/date/"+dataStart+"/"+dataEnd+"/locations/"+loc+"",
+        url:"/api/clients/date/"+dateStart+"/"+dateEnd+"/locations/"+loc+"",
         contentType: "application/json",
         //data: JSON.stringify(),
         success: function (result) {
+            $(".information").empty();;
             for (j = 0; j <= result.length; j++)
             {
                 $(".information").append("id:" +result[j].id +" firstName:"+ result[j].firstName + "<br />");
             }
-
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -67,4 +70,8 @@ function calendarClick() {
             alert('hernya: '+jqXHR.status + ' ' + jqXHR.responseText);
         }
     });
+}
+
+function test() {
+    alert("test");
 }

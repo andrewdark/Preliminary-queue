@@ -13,12 +13,21 @@
     <link rel="stylesheet" th:href="@{/css/MyStyle.css}">
     <script type="text/javascript" th:src="@{/js/vendor/jquery-2.2.4.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/client.js}"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker();
+        } );
+    </script>
 </head>
 <body>
 <div th:replace="fragments/headers :: ${#authorization.expression('isAuthenticated()')} ? 'header_auth' : 'header_no_auth'">
 
 </div>
-<div th:replace="fragments/client :: ${clientmod}">
+<div th:replace="fragments/client_bodies :: ${clientmod}">
 
 </div>
 </body>

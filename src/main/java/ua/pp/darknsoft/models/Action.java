@@ -9,17 +9,14 @@ import java.util.Set;
 
 
 public enum Action {
-    ACTION01{
-        public String toString() {
-            return "this is one";
-        }
-    },ACTION02{
-        public String toString() {
-            return "this is two";
-        }
-    },ACTION03{
-        public String toString() {
-            return "this is three";
-        }
-    };
+    ACTION01("Дія №1"),ACTION02("Дія №2"),ACTION03("Дія №3");
+    private final String displayName;
+
+    Action(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
 }

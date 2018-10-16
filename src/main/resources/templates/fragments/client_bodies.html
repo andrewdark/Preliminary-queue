@@ -26,11 +26,18 @@
                     </tr>
                     <tr>
                         <td>action:</td>
-                        <td><input type='text' id='action' name='action' value=''></td>
+                        <td><select id='action' name='action'>
+                            <option th:each="state : ${T(ua.pp.darknsoft.models.Action).values()}" th:value="${state}" th:text="${state.displayName}"></option>
+                            </option>
+                        </select>
+                        </td>
                     </tr>
                     <tr>
                         <td>location:</td>
-                        <td><input type='text' id='location' name='location' value=''></td>
+                        <td><select id='location' name='location'>
+                            <option th:each="loc : ${locations}" th:value="${loc.id}" th:text="${loc.tscNumber}"></option>
+                            </option>
+                        </td>
                     </tr>
                     <tr>
                         <td>meeting:</td>
@@ -49,10 +56,21 @@
     </section>
 
 </div>
-<div th:fragment="no">
+<div th:fragment="show_all_clients">
     <section class="project-area section-gap" id="project2">
         <div class="container">
-            HELLO
+            <div>
+                <div id="datepicker"></div>
+                <button onclick="calendarClick()">Search</button>
+            </div>
+            <div class="information">
+                <table>
+                    <tr th:each="client : ${clients}">
+                        <td th:text="${client.meeting}"></td>
+                        <td th:text="${client.lastName}"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </section>
 

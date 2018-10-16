@@ -4,8 +4,8 @@ function submitClientObj() {
     var firstName = jQuery("#firstName").val();
     var lastName = jQuery("#lastName").val();
     var middleName = jQuery("#middleName").val();
-    var action = jQuery("#action").val();
-    var location = jQuery("#location").val();
+    var action = jQuery("#action option:selected").val();
+    var location = jQuery("#location option:selected").val();
     var meeting = jQuery("#meeting").val();
     var userId = 0;
     //var encryptedPassword = jQuery("#pwd").val();
@@ -15,14 +15,11 @@ function submitClientObj() {
         "firstName": firstName,
         "lastName": lastName,
         "middleName": middleName,
-        "action": {
-            "id": 2,
-            "actionName": "ololo2"
-        },
+        "action": action,
         "location": {
-            "id": 1,
-            "tscNumber": 5555,
-            "address": "adr1"
+            "id": location,
+            "tscNumber": 0000,
+            "address": ""
         },
         "meeting": meeting,
         "userId": 0
@@ -36,6 +33,34 @@ function submitClientObj() {
         success: function (result) {
             $(".information").append("<p>"  + "Client has just created." + "</p>");
             //do nothing
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $(".information").append(Client);
+            alert('hernya: '+jqXHR.status + ' ' + jqXHR.responseText);
+        }
+    });
+}
+
+// Search clients when Calendar was clicked
+
+function calendarClick() {
+
+    var dataStart = "2017-01-01 06:00:00";
+    var dataEnd = "2019-01-01 15:00:00";
+    var loc = 1;
+
+    $.ajax({
+        type: "get",
+        url:"/api/clients/date/"+dataStart+"/"+dataEnd+"/locations/"+loc+"",
+        contentType: "application/json",
+        //data: JSON.stringify(),
+        success: function (result) {
+            for (j = 0; j <= result.length; j++)
+            {
+                $(".information").append("id:" +result[j].id +" firstName:"+ result[j].firstName + "<br />");
+            }
+
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
             $(".information").append(Client);

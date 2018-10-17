@@ -9,5 +9,5 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    List<Client> findByMeetingBetweenAndLocationId(Date date1, Date date2, Long id);
+    List<Client> findByMeetingBetweenAndLocationIdOrderByMeeting(Date date1, Date date2, Long locationId);
 }

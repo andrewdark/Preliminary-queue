@@ -1,3 +1,7 @@
+$(document).ready(function () {
+    $("#popup1").hide();
+});
+
 function submitClientObj() {
 
     var id = 0;
@@ -31,12 +35,12 @@ function submitClientObj() {
         contentType: "application/json", //this is required for spring 3 - ajax to work (at least for me)
         data: JSON.stringify(Client), //json object or array of json objects
         success: function (result) {
-            $(".information").append("<p>"  + "Client has just created." + "</p>");
+            $(".client_create_info").append("<p>" + "Client has just created." + "</p>");
             //do nothing
         },
         error: function (jqXHR, textStatus, errorThrown) {
             $(".information").append(Client);
-            alert('hernya: '+jqXHR.status + ' ' + jqXHR.responseText);
+            alert('hernya: ' + jqXHR.status + ' ' + jqXHR.responseText);
         }
     });
 }
@@ -45,33 +49,38 @@ function submitClientObj() {
 
 function calendarClick() {
 
-    jQuery("#datepicker").datepicker( "option", "dateFormat", "yy-mm-dd" );
+    jQuery("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
     //var testdate = jQuery("#datepicker").datepicker( "getDate" );
-    var date = $("#datepicker").datepicker({ dateFormat: "yy-mm-dd" }).val();
-    var dateStart = date + " 06:00:00";
-    var dateEnd = date +" 15:00:00";
+    var date = $("#datepicker").datepicker({dateFormat: "yy-mm-dd"}).val();
+    //var dateStart = date + " 06:00:00";
+    //var dateEnd = date +" 15:00:00";
     var loc = 1;
+    var url = "/api/clients/date/"+date+"/locations/"+loc;
 
     $.ajax({
         type: "get",
-        url:"/api/clients/date/"+dateStart+"/"+dateEnd+"/locations/"+loc+"",
+        //url:"/api/clients/date/"+dateStart+"/"+dateEnd+"/locations/"+loc+"",
+        url: url,
         contentType: "application/json",
         //data: JSON.stringify(),
         success: function (result) {
-            $(".information").empty();;
-            for (j = 0; j <= result.length; j++)
-            {
-                $(".information").append("id:" +result[j].id +" firstName:"+ result[j].firstName + "<br />");
+            $(".information").empty();
+            ;
+            for (j = 0; j <= result.length; j++) {
+                $(".information").append("id:" + result[j].id + " firstName:" + result[j].firstName + "<br />");
             }
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
             $(".information").append(Client);
-            alert('hernya: '+jqXHR.status + ' ' + jqXHR.responseText);
+            alert('hernya: ' + jqXHR.status + ' ' + jqXHR.responseText);
         }
     });
 }
 
-function test() {
-    alert("test");
+function closePopUp() {
+    $("#popup1").hide();
+}
+function openPopUp() {
+    $("#popup1").show();
 }

@@ -40,15 +40,12 @@ public class MainController {
         Date d = new Date();
 
         SimpleDateFormat fIn = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat fOut = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        System.out.println(fOut.format(d));
+        //SimpleDateFormat fOut = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+
 
         try {
             model.addAttribute("clients",
-                    clientService.findAllByMeetingBetweenAndLocationId(
-                            fOut.parse(fIn.format(d) + "T06:00:00.390+0300"), fOut.parse(fIn.format(d) + "T15:00:00.390+0300"), 1L)
-            );
-            System.out.println(fOut.parse(fIn.format(d) + "T06:00:00.390+0300") + " - " + fOut.parse(fIn.format(d) + "T15:00:00.390+0300"));
+                    clientService.fullDayQueue(fIn.format(d), 1L));
         } catch (ParseException e) {
             e.printStackTrace();
         }

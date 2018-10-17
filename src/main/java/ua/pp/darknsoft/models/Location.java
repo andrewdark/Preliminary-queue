@@ -26,7 +26,7 @@ public class Location {
     @JsonManagedReference
     private Set<AppUser> appUsers;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "location")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "location")
     @JsonManagedReference
     //@JsonIgnore
     private Set<Client> clients;

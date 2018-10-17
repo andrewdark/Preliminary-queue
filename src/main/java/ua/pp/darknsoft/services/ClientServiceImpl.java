@@ -10,6 +10,8 @@ import ua.pp.darknsoft.models.AppUser;
 import ua.pp.darknsoft.models.Client;
 import ua.pp.darknsoft.repositories.ClientRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -60,7 +62,27 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Client> findAllByMeetingBetweenAndLocationId(Date date1, Date date2, Long id) {
-        return clientRepository.findByMeetingBetweenAndLocationId(date1, date2, id);
+        return clientRepository.findByMeetingBetweenAndLocationIdOrderByMeeting(date1, date2, id);
+    }
+
+    @Override
+    public List<Client> findAllByMeetingDateAndLocationId(String date, Long locationId) {
+
+        SimpleDateFormat fIn = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat fOut = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        List<Client> tmp = new ArrayList<>();
+
+        try {
+            tmp = clientRepository.findByMeetingBetweenAndLocationIdOrderByMeeting(
+                    fOut.parse(date + "T06:00:00.390+0300"),
+                    fOut.parse(date + "T15:00:00.390+0300"),
+                    locationId);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return tmp;
+        }
+        return tmp;
     }
 
     private Long getUserId() {
@@ -70,5 +92,38 @@ public class ClientServiceImpl implements ClientService {
             appUser = appUserService.getAppUserByUserName(authentication.getName());
             return appUser.getUserId();
         } else return 0L;
+    }
+
+    @Override
+    public List<Client> fullDayQueue(String userDay, Long locationId) throws ParseException {
+        List<Client> tmp = findAllByMeetingDateAndLocationId(userDay, locationId);
+        tmp = correctQueue(tmp, userDay);
+        return tmp;
+    }
+
+    private List<Client> correctQueue(List<Client> dbList, String userDay) throws ParseException {
+        List<Client> fullClientList = new ArrayList<>(25);
+        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(userDay + " 08:40:00");
+        for (int i = 0; i <= 24; i++) {
+            Client client = new Client();
+            date.setTime(date.getTime() + 1200000);
+            client.setFirstName("Вільно");
+            client.setLastName("Вільно");
+            client.setMiddleName("Вільно");
+            client.setMeeting((Date) date.clone());
+            fullClientList.add(client);
+        }
+        System.out.println(dbList);
+        for (Client dbClient : dbList) {
+            for (Client innerClient : fullClientList) {
+                System.out.println("innerCl: " + innerClient.getMeeting() + " - dbClient:" + dbClient.getMeeting());
+                if (innerClient.getMeeting().compareTo(dbClient.getMeeting()) == 0) {
+                    fullClientList.set(fullClientList.indexOf(innerClient),dbClient); //replace cycle foreach
+                    break;
+                }
+            }
+        }
+
+        return fullClientList;
     }
 }

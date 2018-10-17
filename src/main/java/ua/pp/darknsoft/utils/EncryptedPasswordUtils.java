@@ -1,6 +1,12 @@
 package ua.pp.darknsoft.utils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ua.pp.darknsoft.models.Client;
+import ua.pp.darknsoft.services.ClientService;
+import ua.pp.darknsoft.services.ClientServiceImpl;
+
+import java.text.ParseException;
+import java.util.List;
 
 public class EncryptedPasswordUtils {
     // Encrypt Password with BCryptPasswordEncoder
@@ -15,14 +21,5 @@ public class EncryptedPasswordUtils {
 
         System.out.println("Encryted Password: " + encrytedPassword);
 
-//        Action action = actionService.getActionById(1L);
-//       // action.setActionName("Ololoev doing");
-//        //Set<Client> clients = new HashSet<>();
-//        //clients.add(client);
-//       // action.setClients(clients);
-//        client.setAction(action);
-//
-//        actionService.createAction(action);
-//        clientService.createClient(client);
     }
 }

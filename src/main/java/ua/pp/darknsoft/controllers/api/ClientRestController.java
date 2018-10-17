@@ -74,19 +74,32 @@ public class ClientRestController {
 
     @GetMapping(value = "/clients/date/{s1}/{s2}/locations/{id}")
     public ResponseEntity<List<Client>> selectAllByMeetingBetweenAndLocationId(@PathVariable(value = "s1") String s1,
-                                                                              @PathVariable(value = "s2") String s2,
-                                                                              @PathVariable(value = "id") Long id) {
+                                                                               @PathVariable(value = "s2") String s2,
+                                                                               @PathVariable(value = "id") Long id) {
         Date d1 = new Date();
         Date d2 = new Date();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             d1 = formatter.parse(s1);
             d2 = formatter.parse(s2);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        List<Client> tmp = clientService.findAllByMeetingBetweenAndLocationId(d1, d2, id);
+        if (tmp.isEmpty()) return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<List<Client>>(tmp, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/clients/date/{dateStr}/locations/{id}")
+    public ResponseEntity<List<Client>> selectAllByDate(@PathVariable(value = "dateStr") String dateStr, @PathVariable(value = "id") Long id) {
+
+        List<Client> tmp = null;
+        try {
+            tmp = clientService.fullDayQueue(dateStr, id);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        List<Client> tmp = clientService.findAllByMeetingBetweenAndLocationId(d1, d2, id);
-        //if (tmp.isEmpty()) return new ResponseEntity<Set<Client>>(HttpStatus.NOT_FOUND);
+        if (tmp.isEmpty()) return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<List<Client>>(tmp, HttpStatus.OK);
     }
 }

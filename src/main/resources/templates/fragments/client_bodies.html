@@ -27,7 +27,8 @@
                     <tr>
                         <td>action:</td>
                         <td><select id='action' name='action'>
-                            <option th:each="state : ${T(ua.pp.darknsoft.models.Action).values()}" th:value="${state}" th:text="${state.displayName}"></option>
+                            <option th:each="state : ${T(ua.pp.darknsoft.models.Action).values()}" th:value="${state}"
+                                    th:text="${state.displayName}"></option>
                             </option>
                         </select>
                         </td>
@@ -35,13 +36,14 @@
                     <tr>
                         <td>location:</td>
                         <td><select id='location' name='location'>
-                            <option th:each="loc : ${locations}" th:value="${loc.id}" th:text="${loc.tscNumber}"></option>
+                            <option th:each="loc : ${locations}" th:value="${loc.id}"
+                                    th:text="${loc.tscNumber}"></option>
                             </option>
                         </td>
                     </tr>
                     <tr>
                         <td>meeting:</td>
-                        <td><input type='text' id='meeting' name='meeting' value=''></td>
+                        <td><input type='text' id='meeting' name='meeting' value='' onclick="openPopUp()"></td>
                     </tr>
 
                     <tr>
@@ -50,24 +52,36 @@
                         </td>
                     </tr>
                 </table>
-                <div class="information" ></div>
+                <div class="client_create_info"></div>
             </div>
         </div>
     </section>
+    <div class="b-popup" id="popup1">
+        <div class="b-popup-content" id="setloc_popup">
+            <button onclick="closePopUp()">CLOSE</button>
+            <div th:replace="fragments/client_bodies :: show_popup_calendar">
 
+            </div>
+        </div>
+    </div>
 </div>
 <div th:fragment="show_all_clients">
     <section class="project-area section-gap" id="project2">
         <div class="container">
-            <div>
-                <div id="datepicker"></div>
-                <button onclick="calendarClick()">Search</button>
-            </div>
-            <div class="information">
+            <div th:fragment="show_popup_calendar">
                 <table>
-                    <tr th:each="client : ${clients}">
-                        <td th:text="${client.meeting}"></td>
-                        <td th:text="${client.lastName}"></td>
+                    <tr>
+                        <td>
+                            <div id="datepicker"></div>
+
+                        </td>
+                        <td>
+                            <button onclick="calendarClick()">Search</button>
+                        </td>
+                        <td>
+                            <div class="information">
+                            </div>
+                        </td>
                     </tr>
                 </table>
             </div>

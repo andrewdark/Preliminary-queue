@@ -21,6 +21,10 @@ function submitClientObj() {
         $(".client_create_info").append("<font:color='red'>Ім'я не корректне</font><br />");
         return;
     }
+    if (meeting.length < 10) {
+        $(".client_create_info").append("<font:color='red'>Дата не корректна</font><br />");
+        return;
+    }
 
     var Client = {
         "id": 0,
@@ -62,7 +66,7 @@ function calendarClick() {
     var date = $("#datepicker").datepicker({dateFormat: "yy-mm-dd"}).val();
     //var dateStart = date + " 06:00:00";
     //var dateEnd = date +" 15:00:00";
-    var loc = 1;
+    var loc = jQuery("#location option:selected").val();
     var url = "/api/clients/date/" + date + "/locations/" + loc;
 
     $.ajax({

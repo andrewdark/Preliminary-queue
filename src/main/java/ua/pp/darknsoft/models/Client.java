@@ -39,6 +39,9 @@ public class Client {
     @Column(name = "user_id")
     private Long userId;
 
+    @Column(name = "serviced", columnDefinition = "bit(1) DEFAULT 0")
+    public Boolean serviced = false;
+
     public Long getId() {
         return id;
     }

@@ -13,6 +13,14 @@ function submitClientObj() {
     var meeting = jQuery("#meeting").val();
     var userId = 0;
     //var encryptedPassword = jQuery("#pwd").val();
+    if (lastName.length < 2) {
+        $(".client_create_info").append("<font:color='red'>Прізвище не корректне</font><br />");
+        return;
+    }
+    if (firstName.length < 1) {
+        $(".client_create_info").append("<font:color='red'>Ім'я не корректне</font><br />");
+        return;
+    }
 
     var Client = {
         "id": 0,
@@ -55,7 +63,7 @@ function calendarClick() {
     //var dateStart = date + " 06:00:00";
     //var dateEnd = date +" 15:00:00";
     var loc = 1;
-    var url = "/api/clients/date/"+date+"/locations/"+loc;
+    var url = "/api/clients/date/" + date + "/locations/" + loc;
 
     $.ajax({
         type: "get",
@@ -65,9 +73,27 @@ function calendarClick() {
         //data: JSON.stringify(),
         success: function (result) {
             $(".information").empty();
-            ;
+
             for (j = 0; j <= result.length; j++) {
-                $(".information").append("id:" + result[j].id + " firstName:" + result[j].firstName + "<br />");
+                if (result[j].lastName.length > 1) {
+                    $(".information").append("<button class='ch-time'onclick='' disabled='true'>" +
+                        result[j].lastName + " " + result[j].firstName + "</button>" + "<br />");
+                }
+                else {
+                    var date = new Date(result[j].meeting);
+                    var displayData = "";
+
+                    if (date.getMinutes() == 0) {
+                        displayData = date.getHours() + " : 00";
+                    } else {
+                        displayData = date.getHours() + " : " + date.getMinutes();
+                    }
+
+                    $(".information")
+                        .append("<button class='ch-time green' onclick='javascript:setDateTimeOnMainForm(\"" + result[j].meeting + "\")' >" +
+                            displayData + " ВІЛЬНО </button>" + "<br />");
+                }
+
             }
 
         },
@@ -78,9 +104,21 @@ function calendarClick() {
     });
 }
 
-function closePopUp() {
+function setDateTimeOnMainForm(date) {
+    $("#meeting").removeAttr("disabled");
+    $("#meeting").val(date);
     $("#popup1").hide();
 }
+
+function closePopUp() {
+    $("#meeting").removeAttr("disabled");
+    $("#meeting").val('');
+    $("#popup1").hide();
+}
+
 function openPopUp() {
+    $("#meeting").val('');
+    $("#meeting").attr("disabled", "true");
+    $(".information").empty();
     $("#popup1").show();
 }

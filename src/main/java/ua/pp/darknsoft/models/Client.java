@@ -15,13 +15,13 @@ public class Client {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name", nullable = false, length = 48)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name", nullable = false, length = 48)
     private String lastName;
 
-    @Column(name = "middle_name", nullable = true)
+    @Column(name = "middle_name", nullable = true, length = 48)
     private String middleName;
 
     @Enumerated(value = EnumType.STRING)
@@ -32,7 +32,7 @@ public class Client {
     @JsonBackReference
     private Location location;
 
-    @Column(name = "meeting_time")
+    @Column(name = "meeting_time", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date meeting;
 

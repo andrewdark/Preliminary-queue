@@ -11,21 +11,20 @@
             <div class="row d-flex justify-content-center">
 
                 <table>
-
                     <tr>
-                        <td>firstName:</td>
-                        <td><input type='text' id='firstName' name='firstName' value=''></td>
+                        <td>Прізвище:</td>
+                        <td><input type='text' id='lastName' name='lastName' value='' maxlength="48"></td>
                     </tr>
                     <tr>
-                        <td>lastName:</td>
-                        <td><input type='text' id='lastName' name='lastName' value=''></td>
+                        <td>Ім'я:</td>
+                        <td><input type='text' id='firstName' name='firstName' value='' maxlength="48"></td>
                     </tr>
                     <tr>
-                        <td>middleName:</td>
-                        <td><input type='text' id='middleName' name='middleName' value=''></td>
+                        <td>По батькові:</td>
+                        <td><input type='text' id='middleName' name='middleName' value='' maxlength="48"></td>
                     </tr>
                     <tr>
-                        <td>action:</td>
+                        <td>Дія:</td>
                         <td><select id='action' name='action'>
                             <option th:each="state : ${T(ua.pp.darknsoft.models.Action).values()}" th:value="${state}"
                                     th:text="${state.displayName}"></option>
@@ -34,7 +33,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>location:</td>
+                        <td>№ ТСЦ:</td>
                         <td><select id='location' name='location'>
                             <option th:each="loc : ${locations}" th:value="${loc.id}"
                                     th:text="${loc.tscNumber}"></option>
@@ -42,7 +41,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>meeting:</td>
+                        <td>Час та Дата:</td>
                         <td><input type='text' id='meeting' name='meeting' value='' onclick="openPopUp()"></td>
                     </tr>
 
@@ -58,7 +57,7 @@
     </section>
     <div class="b-popup" id="popup1">
         <div class="b-popup-content" id="setloc_popup">
-            <button onclick="closePopUp()">CLOSE</button>
+            <!--<button onclick="closePopUp()">CLOSE</button>-->
             <div th:replace="fragments/client_bodies :: show_popup_calendar">
 
             </div>
@@ -73,10 +72,14 @@
                     <tr>
                         <td>
                             <div id="datepicker"></div>
-
+                            <div>
+                                <button onclick="closePopUp()">Відміна</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button onclick="calendarClick()">Пошук</button>
+                            </div>
                         </td>
                         <td>
-                            <button onclick="calendarClick()">Search</button>
+
                         </td>
                         <td>
                             <div class="information">

@@ -107,18 +107,17 @@ public class ClientServiceImpl implements ClientService {
         for (int i = 0; i <= 24; i++) {
             Client client = new Client();
             date.setTime(date.getTime() + 1200000);
-            client.setFirstName("Вільно");
-            client.setLastName("Вільно");
-            client.setMiddleName("Вільно");
+            client.setFirstName("");
+            client.setLastName("");
+            client.setMiddleName("");
             client.setMeeting((Date) date.clone());
             fullClientList.add(client);
         }
-        System.out.println(dbList);
         for (Client dbClient : dbList) {
             for (Client innerClient : fullClientList) {
                 System.out.println("innerCl: " + innerClient.getMeeting() + " - dbClient:" + dbClient.getMeeting());
                 if (innerClient.getMeeting().compareTo(dbClient.getMeeting()) == 0) {
-                    fullClientList.set(fullClientList.indexOf(innerClient),dbClient); //replace cycle foreach
+                    fullClientList.set(fullClientList.indexOf(innerClient), dbClient); //replace cycle foreach
                     break;
                 }
             }

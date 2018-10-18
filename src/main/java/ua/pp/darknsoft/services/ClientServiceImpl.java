@@ -96,9 +96,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Client> fullDayQueue(String userDay, Long locationId) throws ParseException {
-        List<Client> tmp = findAllByMeetingDateAndLocationId(userDay, locationId);
-        tmp = correctQueue(tmp, userDay);
-        return tmp;
+        List<Client> tmpList = findAllByMeetingDateAndLocationId(userDay, locationId);
+        tmpList = correctQueue(tmpList, userDay);
+        return tmpList;
     }
 
     private List<Client> correctQueue(List<Client> dbList, String userDay) throws ParseException {
@@ -115,14 +115,12 @@ public class ClientServiceImpl implements ClientService {
         }
         for (Client dbClient : dbList) {
             for (Client innerClient : fullClientList) {
-                System.out.println("innerCl: " + innerClient.getMeeting() + " - dbClient:" + dbClient.getMeeting());
                 if (innerClient.getMeeting().compareTo(dbClient.getMeeting()) == 0) {
                     fullClientList.set(fullClientList.indexOf(innerClient), dbClient); //replace cycle foreach
                     break;
                 }
             }
         }
-
         return fullClientList;
     }
 }

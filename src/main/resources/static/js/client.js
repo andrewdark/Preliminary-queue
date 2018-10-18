@@ -64,14 +64,11 @@ function calendarClick() {
     jQuery("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
     //var testdate = jQuery("#datepicker").datepicker( "getDate" );
     var date = $("#datepicker").datepicker({dateFormat: "yy-mm-dd"}).val();
-    //var dateStart = date + " 06:00:00";
-    //var dateEnd = date +" 15:00:00";
     var loc = jQuery("#location option:selected").val();
     var url = "/api/clients/date/" + date + "/locations/" + loc;
 
     $.ajax({
         type: "get",
-        //url:"/api/clients/date/"+dateStart+"/"+dateEnd+"/locations/"+loc+"",
         url: url,
         contentType: "application/json",
         //data: JSON.stringify(),

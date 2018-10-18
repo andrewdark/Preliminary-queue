@@ -34,10 +34,12 @@
                     </tr>
                     <tr>
                         <td>№ ТСЦ:</td>
-                        <td><select id='location' name='location'>
-                            <option th:each="loc : ${locations}" th:value="${loc.id}"
-                                    th:text="${loc.tscNumber}"></option>
-                            </option>
+                        <td>
+                            <select id='location' name='location'>
+                                <option th:each="loc : ${locations}" th:value="${loc.id}"
+                                        th:text= " 'ТСЦ  № ' + (${loc.tscNumber}) + ' МВС' "></option>
+                                </option>
+                            </select>
                         </td>
                     </tr>
                     <tr>

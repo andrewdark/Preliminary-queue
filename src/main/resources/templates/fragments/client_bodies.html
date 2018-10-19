@@ -37,7 +37,7 @@
                         <td>
                             <select id='location' name='location'>
                                 <option th:each="loc : ${locations}" th:value="${loc.id}"
-                                        th:text= " 'ТСЦ  № ' + (${loc.tscNumber}) + ' МВС' "></option>
+                                        th:text=" 'ТСЦ  № ' + (${loc.tscNumber}) + ' МВС' "></option>
                                 </option>
                             </select>
                         </td>
@@ -66,6 +66,7 @@
         </div>
     </div>
 </div>
+
 <div th:fragment="show_all_clients">
     <section class="project-area section-gap" id="project2">
         <div class="container">
@@ -92,7 +93,30 @@
             </div>
         </div>
     </section>
+</div>
+<div th:fragment="body_for_operator">
+    <section class="project-area section-gap" id="operator">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <table>
+                    <tr>
+                        <td>
+                            <button id="start" onclick="autoselect(1)">Start</button>
+                        </td>
+                        <td>
+                            <button id="stop" onclick="autoselect(2)">Stop</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="render_client"></div>
+                        </td>
 
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
 </div>
 </body>
 </html>

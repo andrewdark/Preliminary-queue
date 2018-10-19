@@ -28,4 +28,6 @@ public interface ClientService {
     List<Client> findAllByMeetingDateAndLocationId(String date,Long locationId);
 
     List<Client> fullDayQueue(String userDay, Long locationId) throws ParseException;
+
+    List<Client> currentClients();
 }

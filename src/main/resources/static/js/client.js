@@ -105,6 +105,60 @@ function calendarClick() {
     });
 }
 
+//auto render operator workPlace
+function selectCurrentClient() {
+
+
+    var url = "/api/clients/current";
+
+    $.ajax({
+        type: "get",
+        url: url,
+        contentType: "application/json",
+        //data: JSON.stringify(),
+        success: function (result) {
+            $(".render_client").empty();
+            for (j = 0; j <= result.length; j++) {
+                var date = new Date(result[j].meeting);
+                var displayData = "";
+
+                if (date.getMinutes() == 0) {
+                    displayData = date.getHours() + " : 00";
+                } else {
+                    displayData = date.getHours() + " : " + date.getMinutes();
+                }
+                $(".render_client").append("<p>" + displayData + "<br />" + result[j].lastName + " " + result[j].firstName + "</p>");
+            }
+
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $(".information").append(Client);
+            alert('hernya: ' + jqXHR.status + ' ' + jqXHR.responseText);
+        }
+    });
+}
+
+var interId = 0; //Interval
+
+function autoselect(check) {
+
+    $("stop").click()
+
+
+    if (check == 2) {
+        clearInterval(interId);
+
+    }
+    if (check == 1) {
+
+        interId = setInterval(selectCurrentClient, 10000);
+
+    }
+
+}
+
+//##########################################################
 function setDateTimeOnMainForm(date) {
     $("#meeting").removeAttr("disabled");
     $("#meeting").val(date);

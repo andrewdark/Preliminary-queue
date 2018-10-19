@@ -73,6 +73,7 @@ public class ClientRestController {
     }
 
     @GetMapping(value = "/clients/date/{s1}/{s2}/locations/{id}")
+    @ResponseBody
     public ResponseEntity<List<Client>> selectAllByMeetingBetweenAndLocationId(@PathVariable(value = "s1") String s1,
                                                                                @PathVariable(value = "s2") String s2,
                                                                                @PathVariable(value = "id") Long id) {
@@ -91,6 +92,7 @@ public class ClientRestController {
     }
 
     @GetMapping(value = "/clients/date/{dateStr}/locations/{id}")
+    @ResponseBody
     public ResponseEntity<List<Client>> selectAllByDate(@PathVariable(value = "dateStr") String dateStr, @PathVariable(value = "id") Long id) {
 
         List<Client> tmp = null;
@@ -99,6 +101,14 @@ public class ClientRestController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        if (tmp.isEmpty()) return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<List<Client>>(tmp, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/clients/current")
+    @ResponseBody
+    public ResponseEntity<List<Client>> selectCurentClientsByLocation(){
+        List<Client> tmp = clientService.currentClients();
         if (tmp.isEmpty()) return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<List<Client>>(tmp, HttpStatus.OK);
     }

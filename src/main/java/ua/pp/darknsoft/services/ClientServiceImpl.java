@@ -94,10 +94,30 @@ public class ClientServiceImpl implements ClientService {
         } else return 0L;
     }
 
+    private Long getUserLocationId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = new AppUser();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            appUser = appUserService.getAppUserByUserName(authentication.getName());
+            return appUser.getLocation().getId();
+        } else return 1L;
+    }
+
     @Override
     public List<Client> fullDayQueue(String userDay, Long locationId) throws ParseException {
         List<Client> tmpList = findAllByMeetingDateAndLocationId(userDay, locationId);
         tmpList = correctQueue(tmpList, userDay);
+        return tmpList;
+    }
+
+    @Override
+    public List<Client> currentClients() {
+        Date curdDateStart = new Date();
+        Date curdDateStop = new Date();
+        curdDateStart.setTime(curdDateStart.getTime() - (20 * 60000));
+        curdDateStop.setTime(curdDateStop.getTime() + (20 * 60000));
+        List<Client> tmpList =
+                clientRepository.findByMeetingBetweenAndLocationIdOrderByMeeting(curdDateStart, curdDateStop, getUserLocationId());
         return tmpList;
     }
 

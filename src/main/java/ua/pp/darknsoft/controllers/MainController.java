@@ -37,18 +37,24 @@ public class MainController {
     @GetMapping(value = "/showclients")
     public String showClient(Model model) {
         model.addAttribute("clientmod", "show_all_clients");
-        Date d = new Date();
+//        Date d = new Date();
+//
+//        SimpleDateFormat fIn = new SimpleDateFormat("yyyy-MM-dd");
+//        //SimpleDateFormat fOut = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+//
+//
+//        try {
+//            model.addAttribute("clients",
+//                    clientService.fullDayQueue(fIn.format(d), 1L));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+        return "clientPage";
+    }
 
-        SimpleDateFormat fIn = new SimpleDateFormat("yyyy-MM-dd");
-        //SimpleDateFormat fOut = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-
-
-        try {
-            model.addAttribute("clients",
-                    clientService.fullDayQueue(fIn.format(d), 1L));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    @GetMapping(value = "/operator")
+    public String operatorWorkSpace(Model model){
+        model.addAttribute("clientmod", "body_for_operator");
         return "clientPage";
     }
 }

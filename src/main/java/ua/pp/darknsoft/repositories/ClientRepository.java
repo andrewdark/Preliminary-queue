@@ -10,4 +10,5 @@ import java.util.Set;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
     List<Client> findByMeetingBetweenAndLocationIdOrderByMeeting(Date date1, Date date2, Long locationId);
+
 }

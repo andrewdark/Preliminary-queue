@@ -1,5 +1,6 @@
+#Preliminary-queue - система предварительной записи на прием.
+############################################
 USE `preliminary-queue`;
-
 CREATE TABLE persistent_logins (
     
 	username varchar(64) not null,

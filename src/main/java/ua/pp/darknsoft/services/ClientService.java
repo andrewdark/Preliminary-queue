@@ -13,6 +13,10 @@ public interface ClientService {
 
     Set<Client> findAll();
 
+    Set<Client> findByLastName(String lastName);
+
+    Set<Client> findByFutureAndLastName(String lastName);
+
     Client getClientById(Long id);
 
     //Client getAppClientByClientName(String name);

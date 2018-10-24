@@ -38,6 +38,32 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public Set<Client> findByLastName(String lastName) {
+
+        Set<Client> tmpSet = new HashSet<>();
+        if (lastName.length() > 1) {
+            for (Client cli : clientRepository.findByLastNameStartingWith(lastName)) {
+                tmpSet.add(cli);
+            }
+        }
+
+        return tmpSet;
+    }
+
+    @Override
+    public Set<Client> findByFutureAndLastName(String lastName) {
+
+        Set<Client> tmpSet = new HashSet<>();
+        if (lastName.length() > 1) {
+            for (Client cli : clientRepository.findByMeetingAfterAndLastNameStartingWith(new Date(), lastName)) {
+                tmpSet.add(cli);
+            }
+        }
+
+        return tmpSet;
+    }
+
+    @Override
     public Client getClientById(Long id) {
         Optional<Client> optionalClient = clientRepository.findById(id);
         return optionalClient.get();

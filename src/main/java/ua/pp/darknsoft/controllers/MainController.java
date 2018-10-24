@@ -8,10 +8,6 @@ import ua.pp.darknsoft.models.Action;
 import ua.pp.darknsoft.services.ClientService;
 import ua.pp.darknsoft.services.LocationService;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @Controller
 public class MainController {
 
@@ -37,24 +33,18 @@ public class MainController {
     @GetMapping(value = "/showclients")
     public String showClient(Model model) {
         model.addAttribute("clientmod", "show_all_clients");
-//        Date d = new Date();
-//
-//        SimpleDateFormat fIn = new SimpleDateFormat("yyyy-MM-dd");
-//        //SimpleDateFormat fOut = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-//
-//
-//        try {
-//            model.addAttribute("clients",
-//                    clientService.fullDayQueue(fIn.format(d), 1L));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
         return "clientPage";
     }
 
     @GetMapping(value = "/operator")
-    public String operatorWorkSpace(Model model){
+    public String operatorWorkSpace(Model model) {
         model.addAttribute("clientmod", "body_for_operator");
+        return "clientPage";
+    }
+
+    @GetMapping(value = "/searchclientbylastname")
+    public String searchClientByLastName(Model model) {
+        model.addAttribute("clientmod", "search_client_by_last_name");
         return "clientPage";
     }
 }

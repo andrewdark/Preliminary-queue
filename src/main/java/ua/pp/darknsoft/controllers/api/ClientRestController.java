@@ -28,6 +28,14 @@ public class ClientRestController {
         return new ResponseEntity<Set<Client>>(clientService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/clients/byLastName/{name}")
+    @ResponseBody
+    public ResponseEntity<Set<Client>> getClientByLastName(@PathVariable(value = "name") String name) {
+
+        return new ResponseEntity<Set<Client>>(clientService.findByFutureAndLastName(name), HttpStatus.OK);
+
+    }
+
     @GetMapping(value = "/clients/{id}")
     @ResponseBody
     public ResponseEntity<Client> getClientById(@PathVariable(value = "id") Long id) {
@@ -107,7 +115,7 @@ public class ClientRestController {
 
     @GetMapping(value = "/clients/current")
     @ResponseBody
-    public ResponseEntity<List<Client>> selectCurentClientsByLocation(){
+    public ResponseEntity<List<Client>> selectCurentClientsByLocation() {
         List<Client> tmp = clientService.currentClients();
         if (tmp.isEmpty()) return new ResponseEntity<List<Client>>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<List<Client>>(tmp, HttpStatus.OK);

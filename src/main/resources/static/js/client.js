@@ -105,6 +105,64 @@ function calendarClick() {
     });
 }
 
+// Search clients by Last name
+function selectClientByName() {
+    var name = jQuery("#selectClient001").val();
+    var url = "/api/clients/byLastName/" + name;
+
+    $.ajax({
+        type: "get",
+        url: url,
+        contentType: "application/json",
+        //data: JSON.stringify(),
+        success: function (result) {
+            $(".render_client").empty();
+            for (j = 0; j <= result.length; j++) {
+                var date = new Date(result[j].meeting);
+                var displayData = "";
+
+                if (date.getMinutes() == 0) {
+                    displayData = result[j].meeting.substring(0, 10) + " " + date.getHours() + " : 00";
+                } else {
+                    displayData = result[j].meeting.substring(0, 10) + " " + date.getHours() + " : " + date.getMinutes();
+                }
+                $(".render_client").append("<p>" + displayData + "<br />" + result[j].lastName + " " + result[j].firstName +
+                    " <button class='buttonDelete' onclick='deleteClient(" + result[j].id + ")'>Видалити</button></p>");
+            }
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $(".information").append(Client);
+            alert('hernya: ' + jqXHR.status + ' ' + jqXHR.responseText);
+        }
+    });
+
+}
+
+//delete client
+function deleteClient(id) {
+    var isDelete = confirm("Дійсно бажаєте видалити?");
+    if (!isDelete) {
+        return;
+    }
+    var url = "/api/clients/" + id;
+    $.ajax({
+            type: "delete",
+            url: url,
+            contentType: "application/json",
+            //data: JSON.stringify(),
+            success: function (result) {
+                alert("Client with id " + id + " was deleted");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $(".information").append(Client);
+                alert('hernya: ' + jqXHR.status + ' ' + jqXHR.responseText);
+            }
+        }
+    )
+}
+
+
 //auto render operator workPlace
 function selectCurrentClient() {
 
@@ -130,7 +188,6 @@ function selectCurrentClient() {
                 $(".render_client").append("<p>" + displayData + "<br />" + result[j].lastName + " " + result[j].firstName + "</p>");
             }
 
-
         },
         error: function (jqXHR, textStatus, errorThrown) {
             $(".information").append(Client);
@@ -143,17 +200,12 @@ var interId = 0; //Interval
 
 function autoselect(check) {
 
-    $("stop").click()
-
 
     if (check == 2) {
         clearInterval(interId);
-
     }
     if (check == 1) {
-
         interId = setInterval(selectCurrentClient, 10000);
-
     }
 
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -63,11 +64,12 @@
                     <ul class="navbar-nav">
                         <li><a href="/operator">Оператор</a></li>
                         <li><a href="/createnewclient">Запис</a></li>
+                        <li><a href="/searchclientbylastname">Пошук</a></li>
                         <li><a href="/logout">Вийти</a></li>
                         <!-- Dropdown -->
-                        <li class="dropdown">
+                        <li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
                             <a class="dropdown-toggle" href="#" id="navbardrop2" data-toggle="dropdown">
-                                Pages
+                                AdminPnl
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="/admin/roles">Roles</a>

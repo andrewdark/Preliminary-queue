@@ -118,5 +118,26 @@
         </div>
     </section>
 </div>
+<div th:fragment="search_client_by_last_name">
+    <section class="project-area section-gap" id="search_client">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <table>
+                    <tr>
+                        <td><input id="selectClient001" type="text" onkeypress="selectClientByName()"/> </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="render_client"></div>
+                        </td>
+
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </section>
+</div>
 </body>
 </html>

@@ -7,11 +7,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import ua.pp.darknsoft.models.AppRole;
 import ua.pp.darknsoft.models.AppUser;
+import ua.pp.darknsoft.repositories.AppRoleDAO;
 import ua.pp.darknsoft.services.AppRoleService;
 import ua.pp.darknsoft.services.AppUserService;
+import ua.pp.darknsoft.services.LocationService;
+import ua.pp.darknsoft.services.UserRoleService;
 
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -20,6 +25,12 @@ public class AdminController {
     AppRoleService appRoleService;
     @Autowired
     AppUserService appUserService;
+    @Autowired
+    UserRoleService userRoleService;
+    @Autowired
+    AppRoleDAO appRoleDAO;
+    @Autowired
+    LocationService locationService;
 
     @GetMapping(value = "/admin/roles")
     public String adminPageShowRoles(Model model) {
@@ -51,4 +62,15 @@ public class AdminController {
         return "adminPage";
     }
 
+    @GetMapping(value = "/admin/users/{id}")
+    public String updateUser(@PathVariable(value = "id") Long id, Model model) {
+        model.addAttribute("usermod", "users_detail");
+        AppUser appUser = appUserService.getAppUserById(id);
+        model.addAttribute("user", appUser);
+        List<String> userRoles = appRoleDAO.getRoleNames(id);
+        model.addAttribute("userRoles", userRoles);
+        model.addAttribute("locations", locationService.findAll());
+        model.addAttribute("roles", appRoleService.findAll());
+        return "adminPage";
+    }
 }

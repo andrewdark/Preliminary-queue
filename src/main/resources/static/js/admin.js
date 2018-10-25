@@ -22,3 +22,27 @@ function submitRegistrationForm() {
         }
     });
 }
+
+function updateUser() {
+
+}
+
+function addRoleToUser() {
+    var appUser = {userId: jQuery("#userId").html(), userName: null, encryptedPassword: null, enabled: null};
+    var appRole = {roleId: jQuery("#roles option:selected").val(), roleName: null};
+    var roleUserCommand = {id: 0, appUser: appUser, appRole: appRole};
+
+    $.ajax({
+        type: "post",
+        url: "/admin/api/user_role", //your valid url (/url)
+        contentType: "application/json", //this is required for spring 3 - ajax to work (at least for me)
+        data: JSON.stringify(roleUserCommand), //json object or array of json objects
+        success: function (result) {
+
+            //do nothing
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.status + ' ' + jqXHR.responseText);
+        }
+    });
+}

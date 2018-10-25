@@ -203,6 +203,7 @@ function autoselect(check) {
 
     if (check == 2) {
         clearInterval(interId);
+        $(".render_client").empty();
     }
     if (check == 1) {
         interId = setInterval(selectCurrentClient, 10000);

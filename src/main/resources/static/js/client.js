@@ -49,10 +49,10 @@ function submitClientObj() {
         data: JSON.stringify(Client), //json object or array of json objects
         success: function (result) {
             $(".client_create_info").append("<p>" + "Client has just created." + "</p>");
-            jQuery("#firstName").empty();
-            jQuery("#lastName").empty();
-            jQuery("#middleName").empty();
-            jQuery("#meeting").empty();
+            $("#firstName").val('');
+            $("#lastName").val('');
+            $("#middleName").val('');
+            $("#meeting").val('');
             //do nothing
         },
         error: function (jqXHR, textStatus, errorThrown) {

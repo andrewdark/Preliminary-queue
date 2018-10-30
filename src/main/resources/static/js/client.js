@@ -2,6 +2,7 @@ $(document).ready(function () {
     $("#popup1").hide();
 });
 
+//CREATE a new client
 function submitClientObj() {
 
     var id = 0;
@@ -48,6 +49,10 @@ function submitClientObj() {
         data: JSON.stringify(Client), //json object or array of json objects
         success: function (result) {
             $(".client_create_info").append("<p>" + "Client has just created." + "</p>");
+            jQuery("#firstName").empty();
+            jQuery("#lastName").empty();
+            jQuery("#middleName").empty();
+            jQuery("#meeting").empty();
             //do nothing
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -185,7 +190,7 @@ function selectCurrentClient() {
                 } else {
                     displayData = date.getHours() + " : " + date.getMinutes();
                 }
-                $(".render_client").append("<p>" + displayData + "<br />" + result[j].lastName + " " + result[j].firstName + "</p>");
+                $(".render_client").append("<tr><td>" + displayData + "</td><td>" + result[j].lastName + " " + result[j].firstName + "</td></tr>");
             }
 
         },

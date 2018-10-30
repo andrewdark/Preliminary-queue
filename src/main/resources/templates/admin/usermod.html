@@ -77,13 +77,13 @@
 
                                 <div class="links">
                                     <div th:if="${user.userId}==1">
-                                        <a href="1">&laquo;</a> <a class="active" href="#">Оновити</a> <a href="#">Зберігти</a>
+                                        <a href="1">&laquo;</a> <a class="active" href="#">Оновити</a> <a href="#">Зберегти</a>
                                         <a th:href="${user.userId}+1">&raquo;</a>
                                     </div>
                                     <!-- ELSE -->
                                     <div th:unless="${user.userId}==1">
                                         <a th:href="${user.userId}-1">&laquo;</a> <a class="active" href="#">Оновити</a>
-                                        <a href="#">Зберігти</a> <a th:href="${user.userId}+1">&raquo;</a>
+                                        <a href="#">Зберегти</a> <a th:href="${user.userId}+1">&raquo;</a>
                                     </div>
                                 </div>
                             </td>

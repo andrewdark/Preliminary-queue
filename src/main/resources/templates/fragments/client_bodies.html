@@ -98,21 +98,22 @@
     <section class="project-area section-gap" id="operator">
         <div class="container">
             <div class="row d-flex justify-content-center">
-                <table>
-                    <tr>
-                        <td th:width="100px">
-                            <button id="start" onclick="autoselect(1)">Start</button>
-                        </td>
-                        <td th:width="100px">
-                            <button id="stop" onclick="autoselect(2)">Stop</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="render_client"></div>
-                        </td>
-                    </tr>
-                </table>
+
+                    <table class="blueTable">
+                        <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <div class="links">
+                                    <a class="active" href="#" onclick="autoselect(1)">Розпочати</a>
+                                    <a class="active" href="#" onclick="autoselect(2)">Зупинити</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tfoot>
+                        <tbody class="render_client">
+
+                        </tbody>
+                    </table>
             </div>
         </div>
     </section>
@@ -123,7 +124,7 @@
             <div class="row d-flex justify-content-center">
                 <table>
                     <tr>
-                        <td><input id="selectClient001" type="text" onkeypress="selectClientByName()"/> </td>
+                        <td><input id="selectClient001" type="text" onkeypress="selectClientByName()"/></td>
                         <td></td>
                     </tr>
                     <tr>

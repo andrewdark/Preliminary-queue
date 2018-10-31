@@ -1,14 +1,14 @@
 package ua.pp.darknsoft.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ua.pp.darknsoft.models.AppUser;
 import ua.pp.darknsoft.services.AppUserService;
-
-import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/admin/api")
@@ -19,8 +19,8 @@ public class AppUserRestController {
 
     @GetMapping(value = "/users")
     @ResponseBody
-    public ResponseEntity<Set<AppUser>> getAllUsers() {
-        return new ResponseEntity<Set<AppUser>>(appUserService.getAllAppUsers(), HttpStatus.OK);
+    public ResponseEntity<Page<AppUser>> getAllUsers(Pageable page) {
+        return new ResponseEntity<Page<AppUser>>(appUserService.getAll(page), HttpStatus.OK);
     }
 
     @GetMapping(value = "/users/{id}")

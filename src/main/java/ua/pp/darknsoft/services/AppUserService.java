@@ -1,5 +1,7 @@
 package ua.pp.darknsoft.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ua.pp.darknsoft.models.AppUser;
 
 import java.util.Set;
@@ -7,6 +9,8 @@ import java.util.Set;
 public interface AppUserService {
 
     Set<AppUser> getAllAppUsers();
+
+    Page<AppUser> getAll(Pageable page);
 
     AppUser getAppUserById(Long id);
 

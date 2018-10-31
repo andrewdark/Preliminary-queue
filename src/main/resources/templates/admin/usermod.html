@@ -22,16 +22,45 @@
     <section class="project-area section-gap" id="project2">
         <div class="container">
             <div class="row d-flex justify-content-center">
-                Your ID: <p th:text="${userId}"></p>
-                <br/>
-                <a href="/admin/users/create">Create new user</a><br/>
-                <table>
+                <table class="blueTable">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User name</th>
+                        <th>isEnabled</th>
+                        <th>Detail</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <td>
+                            <div class="links">
+                                <a class="active" href="/admin/users/create">Створити нового</a>
+                            </div>
+                        </td>
+                        <td colspan="3">
+
+                            <div class="links">
+                                <div>
+                                    <a href="1">&laquo;</a> <a class="active" href="#">2</a> <a href="#">3</a>
+                                    <a th:href="2">&raquo;</a>
+                                </div>
+                                <!-- ELSE -->
+                                <div th:unless="TRUE">
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                    <tbody>
                     <tr th:each="user: ${allUsers}">
                         <td th:text="${user.userId}"></td>
                         <td th:text="${user.userName}"></td>
                         <td th:text="${user.enabled}"></td>
                         <td><a th:href="@{'/admin/users/'+${user.userId}}">Деталі</a></td>
                     </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -69,88 +98,88 @@
     <section class="project-area section-gap" id="project4">
         <div class="container">
             <div class="row d-flex justify-content-center">
-                <table>
-                    <table class="blueTable">
-                        <tfoot>
-                        <tr>
-                            <td colspan="3">
 
-                                <div class="links">
-                                    <div th:if="${user.userId}==1">
-                                        <a href="1">&laquo;</a> <a class="active" href="#">Оновити</a> <a href="#">Зберегти</a>
-                                        <a th:href="${user.userId}+1">&raquo;</a>
-                                    </div>
-                                    <!-- ELSE -->
-                                    <div th:unless="${user.userId}==1">
-                                        <a th:href="${user.userId}-1">&laquo;</a> <a class="active" href="#">Оновити</a>
-                                        <a href="#">Зберегти</a> <a th:href="${user.userId}+1">&raquo;</a>
-                                    </div>
+                <table class="blueTable">
+                    <tfoot>
+                    <tr>
+                        <td colspan="3">
+
+                            <div class="links">
+                                <div th:if="${user.userId}==1">
+                                    <a href="1">&laquo;</a> <a class="active" href="#">Оновити</a> <a
+                                        href="#">Зберегти</a>
+                                    <a th:href="${user.userId}+1">&raquo;</a>
                                 </div>
-                            </td>
-                        </tr>
-                        </tfoot>
-                        <tbody>
-                        <tr>
-                            <td>User ID:</td>
-                            <td id="userId" th:text="${user.userId}"></td>
-                            <td th:text="${user.userId}"></td>
-                        </tr>
-                        <tr>
-                            <td>Login</td>
-                            <td th:text="${user.userName}"></td>
-                            <td><input type="text"/></td>
-                        </tr>
-                        <tr>
-                            <td>PWD</td>
-                            <td>********</td>
-                            <td><input type="text"/></td>
-                        </tr>
-                        <tr>
-                            <td>TSC</td>
-                            <td th:text="${user.location.tscNumber}"></td>
-                            <td>
-                                <select id='location' name='location'>
-                                    <option th:each="loc : ${locations}" th:value="${loc.id}"
-                                            th:text=" 'ТСЦ  № ' + (${loc.tscNumber}) + ' МВС' "></option>
-                                    </option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Roles</td>
-                            <td>
+                                <!-- ELSE -->
+                                <div th:unless="${user.userId}==1">
+                                    <a th:href="${user.userId}-1">&laquo;</a> <a class="active" href="#">Оновити</a>
+                                    <a href="#">Зберегти</a> <a th:href="${user.userId}+1">&raquo;</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <tr>
+                        <td>User ID:</td>
+                        <td id="userId" th:text="${user.userId}"></td>
+                        <td th:text="${user.userId}"></td>
+                    </tr>
+                    <tr>
+                        <td>Login</td>
+                        <td th:text="${user.userName}"></td>
+                        <td><input type="text"/></td>
+                    </tr>
+                    <tr>
+                        <td>PWD</td>
+                        <td>********</td>
+                        <td><input type="text"/></td>
+                    </tr>
+                    <tr>
+                        <td>TSC</td>
+                        <td th:text="${user.location.tscNumber}"></td>
+                        <td>
+                            <select id='location' name='location'>
+                                <option th:each="loc : ${locations}" th:value="${loc.id}"
+                                        th:text=" 'ТСЦ  № ' + (${loc.tscNumber}) + ' МВС' "></option>
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Roles</td>
+                        <td>
 
-                                <table>
-                                    <tr th:each="userRole: ${userRoles}">
-                                        <td th:text="${userRole}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="u_roles"></td>
-                                    </tr>
-                                </table>
+                            <table>
+                                <tr th:each="userRole: ${userRoles}">
+                                    <td th:text="${userRole}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="u_roles"></td>
+                                </tr>
+                            </table>
 
-                            </td>
-                            <td>
-                                <table border="0">
-                                    <tr>
-                                        <td>
-                                            <select id='roles' name='roles'>
-                                                <option th:each="role : ${roles}" th:value="${role.roleId}"
-                                                        th:text="${role.roleName}"></option>
-                                                </option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <div class="linkButton">
-                                                <a href="#" onclick="addRoleToUser()">Додати роль</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        </td>
+                        <td>
+                            <table border="0">
+                                <tr>
+                                    <td>
+                                        <select id='roles' name='roles'>
+                                            <option th:each="role : ${roles}" th:value="${role.roleId}"
+                                                    th:text="${role.roleName}"></option>
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div class="linkButton">
+                                            <a href="#" onclick="addRoleToUser()">Додати роль</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>

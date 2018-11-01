@@ -3,6 +3,7 @@ package ua.pp.darknsoft.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -16,9 +17,11 @@ public class AppUser {
     private Long userId;
 
     @Column(name = "user_name", length = 36, nullable = false)
+    @Size(min = 2)
     private String userName;
 
     @Column(name = "encrypted_password", length = 128, nullable = false)
+    @Size(min = 6)
     private String encryptedPassword;
 
     @Column(name = "enabled", length = 1, nullable = false)

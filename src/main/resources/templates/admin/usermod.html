@@ -117,17 +117,10 @@
                         <td colspan="3">
 
                             <div class="links">
-                                <div th:if="${user.userId}==1">
-                                    <a href="1">&laquo;</a> <a class="active" href="#">Оновити</a> <a
-                                        href="#">Зберегти</a>
-                                    <a th:href="${user.userId}+1">&raquo;</a>
-                                </div>
-                                <!-- ELSE -->
-                                <div th:unless="${user.userId}==1">
-                                    <a th:href="${user.userId}-1">&laquo;</a> <a class="active" href="#">Оновити</a>
-                                    <a href="#">Зберегти</a> <a th:href="${user.userId}+1">&raquo;</a>
-                                </div>
+                                <a class="active" href="">Оновити</a>
+                                <a href="#" onclick="updateUser();">Зберегти</a>
                             </div>
+
                         </td>
                     </tr>
                     </tfoot>
@@ -139,13 +132,13 @@
                     </tr>
                     <tr>
                         <td>Login</td>
-                        <td th:text="${user.userName}"></td>
-                        <td><input type="text"/></td>
+                        <td id="userName" th:text="${user.userName}"></td>
+                        <td><input id="userNameE" type="text"/></td>
                     </tr>
                     <tr>
                         <td>PWD</td>
                         <td>********</td>
-                        <td><input type="text"/></td>
+                        <td><input id="userPwdE" type="text"/></td>
                     </tr>
                     <tr>
                         <td>TSC</td>

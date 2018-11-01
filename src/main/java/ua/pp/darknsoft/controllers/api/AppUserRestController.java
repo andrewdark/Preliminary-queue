@@ -59,9 +59,16 @@ public class AppUserRestController {
         if (currentUser == null) {
             return new ResponseEntity<AppUser>(HttpStatus.NOT_FOUND);
         }
-        currentUser.setUserName(appUser.getUserName());
-        currentUser.setEncryptedPassword(appUser.getEncryptedPassword());
-        currentUser.setEnabled(appUser.getEnabled());
+        if (appUser.getUserName() != null) {
+            currentUser.setUserName(appUser.getUserName());
+        }
+        if (appUser.getEncryptedPassword() != null) {
+            currentUser.setEncryptedPassword(appUser.getEncryptedPassword());
+        }
+        if (appUser.getEnabled() != null) {
+            currentUser.setEnabled(appUser.getEnabled());
+        }
+
         return new ResponseEntity<AppUser>(appUserService.updateAppUser(currentUser), HttpStatus.OK
         );
     }

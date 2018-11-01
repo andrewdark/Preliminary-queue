@@ -24,7 +24,28 @@ function submitRegistrationForm() {
 }
 
 function updateUser() {
+    var userId = jQuery("#userId").html();
+    var userName = null;
+    var userPwd = null;
+    var enabled = null;
+    if (jQuery("#userNameE").val().length > 1) userName = jQuery("#userNameE").val();
+    if (jQuery("#userPwdE").val().length > 5) userPwd = jQuery("#userPwdE").val();
+    var url = "/admin/api/users/" + userId;
+    var appUserCommand = {userId: userId, userName: userName, encryptedPassword: userPwd, enabled: enabled};
 
+    $.ajax({
+        type: "put",
+        url: url, //your valid url (/url)
+        contentType: "application/json", //this is required for spring 3 - ajax to work (at least for me)
+        data: JSON.stringify(appUserCommand), //json object or array of json objects
+        success: function (result) {
+            location.reload();
+            //do nothing
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.status + ' ' + jqXHR.responseText);
+        }
+    });
 }
 
 function addRoleToUser() {

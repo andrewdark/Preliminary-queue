@@ -1,6 +1,8 @@
 package ua.pp.darknsoft.commands;
 
 import ua.pp.darknsoft.models.AppRole;
+import ua.pp.darknsoft.models.Location;
+import ua.pp.darknsoft.models.UserDetails;
 
 import javax.persistence.Transient;
 import java.util.Set;
@@ -11,6 +13,8 @@ public class UserCommand {
     @Transient
     private String encryptedPassword;
     private Boolean enabled;
+    private Location location;
+    private UserDetails userDetails;
     private Set<AppRole> roles;
 
     public Long getUserId() {
@@ -43,6 +47,22 @@ public class UserCommand {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 
     public Set<AppRole> getRoles() {

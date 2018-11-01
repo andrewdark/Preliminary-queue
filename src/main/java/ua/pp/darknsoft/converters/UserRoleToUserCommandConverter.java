@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import ua.pp.darknsoft.commands.UserCommand;
 import ua.pp.darknsoft.models.AppRole;
 import ua.pp.darknsoft.models.AppUser;
+import ua.pp.darknsoft.models.Location;
 import ua.pp.darknsoft.models.UserRole;
 
 import java.util.HashSet;
@@ -30,6 +31,12 @@ public class UserRoleToUserCommandConverter {
         userCommand.setUserId(user.getUserId());
         userCommand.setUserName(user.getUserName());
         userCommand.setEnabled(user.getEnabled());
+        final Location location = new Location();
+        location.setId(user.getLocation().getId());
+        location.setTscNumber(user.getLocation().getTscNumber());
+        location.setAddress(user.getLocation().getAddress());
+        userCommand.setLocation(location);
+        //userCommand.setUserDetails();
         Set<AppRole> appRoles = new HashSet<>();
         for (UserRole userRole : userRoles) {
             appRoles.add(userRole.getAppRole());

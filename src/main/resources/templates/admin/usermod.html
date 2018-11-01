@@ -163,11 +163,12 @@
                         <td>
 
                             <table>
-                                <tr th:each="userRole: ${userRoles}">
-                                    <td th:text="${userRole}"></td>
+                                <tr th:each="userRole: ${user.roles}">
+                                    <td th:text="${userRole.roleName}"></td>
                                     <td>
                                         <div class="linkButton">
-                                            <a href="#" th:onclick="'deleteRoleFromUser(1);'">видалити</a>
+                                            <a href="#"
+                                               th:onclick="'deleteRoleFromUser('+${userRole.roleId}+');'">видалити</a>
                                         </div>
                                     </td>
                                 </tr>

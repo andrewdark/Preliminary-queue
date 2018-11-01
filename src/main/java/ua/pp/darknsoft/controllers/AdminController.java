@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import ua.pp.darknsoft.commands.UserCommand;
 import ua.pp.darknsoft.models.AppRole;
 import ua.pp.darknsoft.models.AppUser;
 import ua.pp.darknsoft.repositories.AppRoleDAO;
@@ -68,10 +69,8 @@ public class AdminController {
     @GetMapping(value = "/admin/users/{id}")
     public String updateUser(@PathVariable(value = "id") Long id, Model model) {
         model.addAttribute("usermod", "users_detail");
-        AppUser appUser = appUserService.getAppUserById(id);
-        model.addAttribute("user", appUser);
-        List<String> userRoles = appRoleDAO.getRoleNames(id);
-        model.addAttribute("userRoles", userRoles);
+        UserCommand userCommand = userRoleService.findByUserId(id);
+        model.addAttribute("user",userCommand);
         model.addAttribute("locations", locationService.findAll());
         model.addAttribute("roles", appRoleService.findAll());
         return "adminPage";

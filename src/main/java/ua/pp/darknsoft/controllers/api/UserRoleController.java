@@ -4,12 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ua.pp.darknsoft.models.AppRole;
-import ua.pp.darknsoft.models.AppUser;
+import org.springframework.web.bind.annotation.*;
+import ua.pp.darknsoft.commands.UserCommand;
 import ua.pp.darknsoft.models.UserRole;
 import ua.pp.darknsoft.services.UserRoleService;
 
@@ -24,11 +20,20 @@ public class UserRoleController {
     @GetMapping(value = "/user_role")
     public ResponseEntity<List<UserRole>> findAll() {
         List<UserRole> userRoles = userRoleService.findAll();
-        for(int i = 0; i<userRoles.size(); i++){
+        for (int i = 0; i < userRoles.size(); i++) {
             userRoles.get(i).getAppUser();
             userRoles.get(i).getAppRole();
         }
         return new ResponseEntity<List<UserRole>>(userRoles, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user_role/users/{userId}")
+    public ResponseEntity<UserCommand> findRolesByUserId(@PathVariable(value = "userId") Long userId) {
+        UserCommand userCommand = userRoleService.findByUserId(userId);
+        if (userCommand == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<UserCommand>(userCommand, HttpStatus.OK);
     }
 
     @PostMapping(value = "/user_role")

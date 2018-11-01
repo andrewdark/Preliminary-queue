@@ -47,6 +47,7 @@ function addRoleToUser() {
     });
 }
 function deleteRoleFromUser(roleId) {
+    alert(roleId);
     var appUser = {userId: jQuery("#userId").html(), userName: null, encryptedPassword: null, enabled: null};
     var appRole = {roleId: roleId, roleName: null};
     var roleUserCommand = {id: 0, appUser: appUser, appRole: appRole};

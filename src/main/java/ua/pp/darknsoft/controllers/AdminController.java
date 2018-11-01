@@ -1,6 +1,8 @@
 package ua.pp.darknsoft.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.pp.darknsoft.models.AppRole;
 import ua.pp.darknsoft.models.AppUser;
 import ua.pp.darknsoft.repositories.AppRoleDAO;
@@ -41,9 +44,9 @@ public class AdminController {
     }
 
     @GetMapping(value = "/admin/users")
-    public String adminPageShowUsers(Model model) {
+    public String adminPageShowUsers(Pageable page, Model model) {
         model.addAttribute("usermod", "users_show");
-        Set<AppUser> allUsers = appUserService.getAllAppUsers();
+        Page<AppUser> allUsers = appUserService.getAll(page);
         model.addAttribute("allUsers", allUsers);
         //get current user ID
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

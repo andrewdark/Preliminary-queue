@@ -39,22 +39,34 @@
                             </div>
                         </td>
                         <td colspan="3">
-
-                            <div class="links">
-                                <div>
-                                    <a href="1">&laquo;</a> <a class="active" href="#">2</a> <a href="#">3</a>
-                                    <a th:href="2">&raquo;</a>
+                            <div class="links" th:with="varName=${'&size=10&sort=userName'}">
+                                <div th:if="${allUsers.number}== 0">
+                                    <a th:href="@{'/admin/users?page=' + ${allUsers.number} + ${varName} }">&laquo;</a>
+                                    <a class="active" th:href="@{'/admin/users?page=0' + ${varName}} ">1</a>
+                                    <a th:href="@{'/admin/users?page=' + ${allUsers.totalPages - 1} + ${varName}} "
+                                       th:text="${allUsers.totalPages}"></a>
+                                    <a th:href="@{'/admin/users?page=' + ${allUsers.number + 1} + ${varName}}">&raquo;</a>
                                 </div>
-                                <!-- ELSE -->
-                                <div th:unless="TRUE">
-
+                                <div th:if="0 < ${allUsers.number} and ${allUsers.number} < ${allUsers.totalPages}">
+                                    <a th:href="@{'/admin/users?page=' + ${allUsers.number - 1} + ${varName}}">&laquo;</a>
+                                    <a class="active" th:href="@{'/admin/users?page=0' + ${varName}} ">1</a>
+                                    <a th:href="@{'/admin/users?page=' + ${allUsers.totalPages - 1} + ${varName}} "
+                                       th:text="${allUsers.totalPages}"></a>
+                                    <a th:href="@{'/admin/users?page=' + ${allUsers.number + 1} + ${varName}}">&raquo;</a>
+                                </div>
+                                <div th:if="${allUsers.number} == ${allUsers.totalPages}">
+                                    <a th:href="@{'/admin/users?page=' + ${allUsers.number - 1} + ${varName}}">&laquo;</a>
+                                    <a class="active" th:href="@{'/admin/users?page=0' + ${varName}} ">1</a>
+                                    <a th:href="@{'/admin/users?page=' + ${allUsers.totalPages - 1} + ${varName}} "
+                                       th:text="${allUsers.totalPages}"></a>
+                                    <a th:href="@{'/admin/users?page=' + ${allUsers.number} + ${varName}}">&raquo;</a>
                                 </div>
                             </div>
                         </td>
                     </tr>
                     </tfoot>
                     <tbody>
-                    <tr th:each="user: ${allUsers}">
+                    <tr th:each="user: ${allUsers.content}">
                         <td th:text="${user.userId}"></td>
                         <td th:text="${user.userName}"></td>
                         <td th:text="${user.enabled}"></td>
@@ -153,6 +165,11 @@
                             <table>
                                 <tr th:each="userRole: ${userRoles}">
                                     <td th:text="${userRole}"></td>
+                                    <td>
+                                        <div class="linkButton">
+                                            <a href="#" th:onclick="'deleteRoleFromUser(1);'">видалити</a>
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="u_roles"></td>

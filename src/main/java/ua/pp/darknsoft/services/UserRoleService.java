@@ -4,7 +4,6 @@ import ua.pp.darknsoft.commands.UserCommand;
 import ua.pp.darknsoft.models.UserRole;
 
 import java.util.List;
-import java.util.Set;
 
 public interface UserRoleService {
 
@@ -15,4 +14,6 @@ public interface UserRoleService {
     boolean isUserRoleExist(UserRole userRole);
 
     UserCommand findByUserId(Long userId);
+
+    void deleteUserFromRole(Long userId, Long roleId);
 }

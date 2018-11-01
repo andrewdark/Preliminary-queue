@@ -149,7 +149,8 @@
                     </tr>
                     <tr>
                         <td>TSC</td>
-                        <td th:text="${user.location.tscNumber}"></td>
+                        <td th:if="${user.location!=null}" th:text="${user.location.tscNumber}"></td>
+                        <td th:if="${user.location==null}"></td>
                         <td>
                             <select id='location' name='location'>
                                 <option th:each="loc : ${locations}" th:value="${loc.id}"
@@ -163,12 +164,12 @@
                         <td>
 
                             <table>
-                                <tr th:each="userRole: ${user.roles}">
+                                <tr th:if="${user.roles}!=null" th:each="userRole: ${user.roles}">
                                     <td th:text="${userRole.roleName}"></td>
                                     <td>
                                         <div class="linkButton">
                                             <a href="#"
-                                               th:onclick="'deleteRoleFromUser('+${userRole.roleId}+');'">видалити</a>
+                                               th:onclick="'deleteRoleFromUser('+${user.userId}+','+${userRole.roleId}+');'">видалити</a>
                                         </div>
                                     </td>
                                 </tr>

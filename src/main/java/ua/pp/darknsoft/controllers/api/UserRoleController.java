@@ -43,4 +43,11 @@ public class UserRoleController {
         }
         return new ResponseEntity<UserRole>(userRoleService.save(userRole), HttpStatus.CREATED);
     }
+
+    @DeleteMapping(value = "/user_role/{userId}/{roleId}")
+    public ResponseEntity<Void> deleteUserFromRole(@PathVariable(value = "userId") Long userId,
+                                                   @PathVariable(value = "roleId") Long roleId) {
+        userRoleService.deleteUserFromRole(userId, roleId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

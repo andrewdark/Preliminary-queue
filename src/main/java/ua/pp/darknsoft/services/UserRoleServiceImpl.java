@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.pp.darknsoft.commands.UserCommand;
 import ua.pp.darknsoft.converters.UserRoleToUserCommandConverter;
+import ua.pp.darknsoft.models.AppRole;
+import ua.pp.darknsoft.models.AppUser;
 import ua.pp.darknsoft.models.UserRole;
+import ua.pp.darknsoft.repositories.AppUserRepository;
 import ua.pp.darknsoft.repositories.UserRoleRepository;
 
 import java.util.ArrayList;
@@ -17,6 +20,8 @@ public class UserRoleServiceImpl implements UserRoleService {
     UserRoleRepository userRoleRepository;
     @Autowired
     UserRoleToUserCommandConverter userRoleConverter;
+    @Autowired
+    AppUserRepository appUserRepository;
 
     @Override
     public List<UserRole> findAll() {
@@ -40,11 +45,24 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public UserCommand findByUserId(Long userId) {
-        Optional<UserCommand> userCommand = Optional.ofNullable(userRoleConverter.convert(userRoleRepository.findAllUserRoleByAppUser_UserId(userId)));
+        Optional<UserCommand> userCommand = Optional.ofNullable(userRoleConverter.convert(appUserRepository.getOne(userId)));
         if (!userCommand.isPresent()) {
-            System.out.println("User with id: " + userId + " NOT found");
+            System.out.println("User with id: " + userId + " NOT found - " + this.getClass().getSimpleName());
             return null;
         }
         return userCommand.get();
+    }
+
+    @Override
+    public void deleteUserFromRole(Long userId, Long roleId) {
+        AppUser appUser = new AppUser();
+        appUser.setUserId(userId);
+        AppRole appRole = new AppRole();
+        appRole.setRoleId(roleId);
+        Optional<UserRole> userRole = userRoleRepository.findUserRoleByAppUserAndAndAppRole(appUser, appRole);
+        if (!userRole.isPresent()) {
+            System.out.println("UserRole NOT FOUND " + this.getClass().getSimpleName());
+        }
+        userRoleRepository.delete(userRole.get());
     }
 }

@@ -38,7 +38,7 @@ function addRoleToUser() {
         contentType: "application/json", //this is required for spring 3 - ajax to work (at least for me)
         data: JSON.stringify(roleUserCommand), //json object or array of json objects
         success: function (result) {
-
+            location.reload();
             //do nothing
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -46,18 +46,20 @@ function addRoleToUser() {
         }
     });
 }
-function deleteRoleFromUser(roleId) {
-    alert(roleId);
-    var appUser = {userId: jQuery("#userId").html(), userName: null, encryptedPassword: null, enabled: null};
-    var appRole = {roleId: roleId, roleName: null};
-    var roleUserCommand = {id: 0, appUser: appUser, appRole: appRole};
 
+function deleteRoleFromUser(userId, roleId) {
+    var url = "/admin/api/user_role/" + userId + "/" + roleId;
+    var isDelete = confirm("Дійсно бажаєте видалити?");
+    if (!isDelete) {
+        return;
+    }
     $.ajax({
         type: "delete",
-        url: "/admin/api/user_role", //your valid url (/url)
+        url: url, //your valid url (/url)
         contentType: "application/json", //this is required for spring 3 - ajax to work (at least for me)
-        data: JSON.stringify(roleUserCommand), //json object or array of json objects
+        //data: JSON.stringify(roleUserCommand), //json object or array of json objects
         success: function (result) {
+            location.reload();
 
             //do nothing
         },

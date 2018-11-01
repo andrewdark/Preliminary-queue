@@ -3,6 +3,8 @@ package ua.pp.darknsoft.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -70,6 +72,11 @@ public class AdminController {
     public String updateUser(@PathVariable(value = "id") Long id, Model model) {
         model.addAttribute("usermod", "users_detail");
         UserCommand userCommand = userRoleService.findByUserId(id);
+        if (userCommand == null){
+            model.addAttribute("message","HTTP ERROR 404");
+            model.addAttribute("cause","User with id " + id + " NOT FOUND");
+            return "404Page";
+        }
         model.addAttribute("user",userCommand);
         model.addAttribute("locations", locationService.findAll());
         model.addAttribute("roles", appRoleService.findAll());

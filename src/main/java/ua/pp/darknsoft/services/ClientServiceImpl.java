@@ -1,6 +1,7 @@
 package ua.pp.darknsoft.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +21,12 @@ public class ClientServiceImpl implements ClientService {
     ClientRepository clientRepository;
     @Autowired
     AppUserService appUserService;
-
+    @Value("${app.queue.time-interval}")
+    public Long timeInterval;
+    @Value("${app.queue.time-start}")
+    private String timeStart;
+    @Value("${app.queue.time-stop}")
+    private String timeStop;
     @Transactional
     @Override
     public Client createClient(Client client) {
@@ -140,8 +146,8 @@ public class ClientServiceImpl implements ClientService {
     public List<Client> currentClients() {
         Date curdDateStart = new Date();
         Date curdDateStop = new Date();
-        curdDateStart.setTime(curdDateStart.getTime() - (20 * 60000));
-        curdDateStop.setTime(curdDateStop.getTime() + (20 * 60000));
+        curdDateStart.setTime(curdDateStart.getTime() - timeInterval);
+        curdDateStop.setTime(curdDateStop.getTime() + timeInterval);
         List<Client> tmpList =
                 clientRepository.findByMeetingBetweenAndLocationIdOrderByMeeting(curdDateStart, curdDateStop, getUserLocationId());
         return tmpList;
@@ -149,10 +155,15 @@ public class ClientServiceImpl implements ClientService {
 
     private List<Client> correctQueue(List<Client> dbList, String userDay) throws ParseException {
         List<Client> fullClientList = new ArrayList<>(25);
-        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(userDay + " 08:40:00");
-        for (int i = 0; i <= 24; i++) {
+        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(userDay + " " + timeStart);
+        date.setTime(date.getTime()-timeInterval);
+        Date stop = new SimpleDateFormat("HH:mm:ss").parse(timeStop);
+        Date start = new SimpleDateFormat("HH:mm:ss").parse(timeStart);
+
+        long maxNumberOfReceptions = (stop.getTime()-start.getTime())/timeInterval;
+        for (int i = 0; i <= maxNumberOfReceptions; i++) {
             Client client = new Client();
-            date.setTime(date.getTime() + 1200000);
+            date.setTime(date.getTime() + timeInterval);
             client.setFirstName("");
             client.setLastName("");
             client.setMiddleName("");

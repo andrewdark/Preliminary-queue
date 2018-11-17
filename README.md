@@ -16,3 +16,7 @@ CREATE TABLE persistent_logins (
 
 ############################################
 https://www.thymeleaf.org/doc/articles/springsecurity.html
+
+For java 11 -> add in build.gradle
+// https://mvnrepository.com/artifact/javassist/javassist
+    compile group: 'javassist', name: 'javassist', version: '3.12.1.GA'

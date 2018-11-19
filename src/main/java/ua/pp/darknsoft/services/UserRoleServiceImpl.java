@@ -39,13 +39,12 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public boolean isUserRoleExist(UserRole userRole) {
-
-        return findAll().contains(userRole);
+        return userRoleRepository.existsUserRoleByAppUserAndAppRole(userRole.getAppUser(), userRole.getAppRole());
     }
 
     @Override
     public UserCommand findByUserId(Long userId) {
-        Optional<UserCommand> userCommand = Optional.ofNullable(userRoleConverter.convert(appUserRepository.getOne(userId)));
+        Optional<UserCommand> userCommand = Optional.ofNullable(userRoleConverter.convert(appUserRepository.findById(userId).get()));
         if (!userCommand.isPresent()) {
             System.out.println("User with id: " + userId + " NOT found - " + this.getClass().getSimpleName());
             return null;

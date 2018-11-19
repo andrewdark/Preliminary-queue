@@ -13,4 +13,6 @@ public interface UserRoleRepository extends CrudRepository<UserRole, Long> {
     Set<UserRole> findAllUserRoleByAppUser_UserId(Long userId);
 
     Optional<UserRole> findUserRoleByAppUserAndAndAppRole(AppUser appUser, AppRole appRole);
+
+    Boolean existsUserRoleByAppUserAndAppRole(AppUser appUser, AppRole appRole);
 }

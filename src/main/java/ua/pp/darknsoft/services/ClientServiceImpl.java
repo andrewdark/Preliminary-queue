@@ -27,6 +27,7 @@ public class ClientServiceImpl implements ClientService {
     private String timeStart;
     @Value("${app.queue.time-stop}")
     private String timeStop;
+
     @Transactional
     @Override
     public Client createClient(Client client) {
@@ -77,7 +78,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public boolean isClientExist(Client client) {
-        return findAll().contains(client);
+        return clientRepository.existsClientByLocationAndMeeting(client.getLocation(), client.getMeeting());
     }
 
     @Transactional
@@ -156,11 +157,11 @@ public class ClientServiceImpl implements ClientService {
     private List<Client> correctQueue(List<Client> dbList, String userDay) throws ParseException {
         List<Client> fullClientList = new ArrayList<>(25);
         Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(userDay + " " + timeStart);
-        date.setTime(date.getTime()-timeInterval);
+        date.setTime(date.getTime() - timeInterval);
         Date stop = new SimpleDateFormat("HH:mm:ss").parse(timeStop);
         Date start = new SimpleDateFormat("HH:mm:ss").parse(timeStart);
 
-        long maxNumberOfReceptions = (stop.getTime()-start.getTime())/timeInterval;
+        long maxNumberOfReceptions = (stop.getTime() - start.getTime()) / timeInterval;
         for (int i = 0; i <= maxNumberOfReceptions; i++) {
             Client client = new Client();
             date.setTime(date.getTime() + timeInterval);

@@ -61,7 +61,7 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public boolean isAppUserExist(AppUser appUser) {
-        return getAllAppUsers().contains(appUser);
+        return appUserRepository.existsAppUsersByUserName(appUser.getUserName());
     }
 
     @Transactional

@@ -51,7 +51,7 @@ public class AppRoleServiceImpl implements AppRoleService {
 
     @Override
     public boolean isAppUserExist(AppRole appRole) {
-        return findAll().contains(appRole);
+        return roleRepository.existsAppRoleByRoleName(appRole.getRoleName());
     }
 
     @Transactional

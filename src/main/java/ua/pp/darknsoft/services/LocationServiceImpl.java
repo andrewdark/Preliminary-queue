@@ -33,7 +33,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public boolean isLocationExist(Location location) {
-        return findAll().contains(location);
+        return locationRepository.existsLocationByTscNumber(location.getTscNumber());
     }
 
     @Transactional
